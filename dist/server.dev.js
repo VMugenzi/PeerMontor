@@ -11,6 +11,10 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+var _UserRoute = _interopRequireDefault(require("./server/Routes/UserRoute"));
+
+var _bodyParser = _interopRequireDefault(require("body-parser"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _dotenv["default"].config({
@@ -18,6 +22,8 @@ _dotenv["default"].config({
 });
 
 var app = (0, _express["default"])();
+app.use(_bodyParser["default"].json());
+app.use("/PeerMontor/v1/user", _UserRoute["default"]);
 var databaseUrl = process.env.DATABASE;
 
 _mongoose["default"].connect(databaseUrl, {
