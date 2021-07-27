@@ -15,6 +15,9 @@ var userRouter = _express["default"].Router();
 
 userRouter.post("/signup", _UserController["default"].signupUser);
 userRouter.get("/all", _UserController["default"].getAllUsers);
+userRouter.get('/:id', _UserController["default"].getOneUser);
+userRouter.patch('/:id', _UserController["default"].updateOneUser);
+userRouter["delete"]('/:id', _UserController["default"].deleteOneUser);
 var _default = userRouter;
 exports["default"] = _default;
 //# sourceMappingURL=UserRoute.dev.js.map

@@ -24,6 +24,12 @@ _dotenv["default"].config({
 var app = (0, _express["default"])();
 app.use(_bodyParser["default"].json());
 app.use("/PeerMontor/v1/user", _UserRoute["default"]);
+app.use('/', function (req, res) {
+  res.status(200).send({
+    status: 200,
+    message: "This is Peermentor  APIs"
+  });
+});
 var databaseUrl = process.env.DATABASE;
 
 _mongoose["default"].connect(databaseUrl, {
@@ -35,9 +41,10 @@ _mongoose["default"].connect(databaseUrl, {
   return console.log("Database connected sucessfully");
 });
 
+var port = process.env.PORT;
 app.listen(4040, function () {
   //console.log(databaseUrl)
-  console.log('Server is running on port 4040');
+  console.log("Server is running on ".concat(port));
 });
 var _default = app;
 exports["default"] = _default;
