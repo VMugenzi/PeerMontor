@@ -10,15 +10,20 @@ const app=express();
 
 app.use(bodyParser.json());
 app.use("/PeerMontor/v1/user",userRouter);
+app.use('/',(req,res)=>{
+    res.status(200).send({
+        status:200,
+        message:"This is Peermentor  APIs"
+    })
+})
 const databaseUrl=process.env.DATABASE;
-
 mongoose.connect(databaseUrl,{useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true,useFindAndModify: false}).then(()=>console.log("Database connected sucessfully"));
 
-
+const port= process.env.PORT;
 
 app.listen(4040,()=>{
     //console.log(databaseUrl)
-    console.log('Server is running on port 4040');
+    console.log(`Server is running on ${port}`);
 
 });
 
