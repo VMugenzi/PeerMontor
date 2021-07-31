@@ -13,6 +13,8 @@ var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _UserRoute = _interopRequireDefault(require("./server/Routes/UserRoute"));
 
+var _SessionRoute = _interopRequireDefault(require("./server/Routes/SessionRoute.js"));
+
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -24,10 +26,11 @@ _dotenv["default"].config({
 var app = (0, _express["default"])();
 app.use(_bodyParser["default"].json());
 app.use("/PeerMontor/v1/user", _UserRoute["default"]);
+app.use("/PeerMontor/v1/session", _SessionRoute["default"]);
 app.use('/', function (req, res) {
-  res.status(200).send({
-    status: 200,
-    message: "This is Peermentor  APIs"
+  res.status(404).send({
+    status: 404,
+    message: "This Route does not exist"
   });
 });
 var databaseUrl = process.env.DATABASE;
@@ -42,7 +45,7 @@ _mongoose["default"].connect(databaseUrl, {
 });
 
 var port = process.env.PORT;
-app.listen(4040, function () {
+app.listen(port, function () {
   //console.log(databaseUrl)
   console.log("Server is running on ".concat(port));
 });
