@@ -17,6 +17,8 @@ sessionRouter.post("/registersession", _SessionController["default"].registerSes
 sessionRouter.get("/all", _SessionController["default"].getAllSessions);
 sessionRouter.get('/:id', _SessionController["default"].getOneSession);
 sessionRouter.patch('/:id', _SessionController["default"].updateOneSession);
+sessionRouter.patch('/:id/status', _SessionController["default"].approveSession);
+sessionRouter.patch('/:id/statusdec', _SessionController["default"].declineSession);
 sessionRouter["delete"]('/:id', _SessionController["default"].deleteOneSession);
 var _default = sessionRouter;
 exports["default"] = _default;

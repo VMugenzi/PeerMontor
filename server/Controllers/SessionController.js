@@ -17,7 +17,9 @@ class sessionController{
     
     });
     }
-static getAllSessions = async(req,res)=>{
+
+
+    static getAllSessions = async(req,res)=>{
     const sessions = await SessionInfo.find();
     if (!sessions){
         return res.status(404).json({
@@ -31,6 +33,8 @@ static getAllSessions = async(req,res)=>{
         data: sessions
     });
 }
+
+
 static getOneSession=async(req,res)=>{
     const session=await SessionInfo.findById(req.params.id);
     if (!session){
@@ -45,6 +49,8 @@ static getOneSession=async(req,res)=>{
         data:session
     });
 }
+
+
 static updateOneSession= async(req,res)=>{
     const session=await SessionInfo.findByIdAndUpdate(req.params.id,req.body);
     if (!session){
@@ -60,6 +66,8 @@ static updateOneSession= async(req,res)=>{
         data: updatedSession
     });
 }
+
+
 static deleteOneSession=async(req,res)=>{
     const session=await SessionInfo.findByIdAndDelete(req.params.id);
     if (!session){
@@ -74,6 +82,55 @@ static deleteOneSession=async(req,res)=>{
         data:session
     });
 }
+
+
+static approveSession=async(req,res)=>{
+    const data=await SessionInfo.findById(req.params.id);
+    let status;
+    if (data.status =="pending"){
+    status= "approved";
+    }
+
+    else (status="pending");
+    const session= await SessionInfo.findByIdAndUpdate(req.params.id,{status:status});
+ if (!session){
+     return res.status(404).json({
+         status:404,
+         message: "session not found"
+     })
+ }
+ const updatedSession=await SessionInfo.findById(req.params.id);
+ return res.status(200).json({
+     status:200,
+     message: "Updated session",
+     data:updatedSession
+ })
+}
+
+static declineSession=async(req,res)=>{
+    const data=await SessionInfo.findById(req.params.id);
+    let status;
+    if (data.status =="pending"){
+    status= "declined";
+    }
+
+    else (status="pending");
+    const session= await SessionInfo.findByIdAndUpdate(req.params.id,{status:status});
+ if (!session){
+     return res.status(404).json({
+         status:404,
+         message: "session not found"
+     })
+ }
+ const updatedSession=await SessionInfo.findById(req.params.id);
+ return res.status(200).json({
+     status:200,
+     message: "Updated session",
+     data:updatedSession
+ })
+}
+
+
 }
 
 export default sessionController;

@@ -16,12 +16,12 @@ const UserSchema= new mongoose.Schema({
             unique:true},
 
     password:{type:String,
-               default:"12345"},
+               default:"12345@"},
     
     age: Number,
 
     role:{type:String,
-          enum:["admin","mentor","User"],
+          enum:["admin","mentor","user"],
           default:"user"},
 
     status: {type:String,
