@@ -5,9 +5,12 @@ const SessionSchema= new mongoose.Schema ({
 
     description:String,
 
-    user:String,
+    user:{type:mongoose.Schema.ObjectId,
+        ref:"user"
+         },
 
-    mentor:String,
+    mentor:{type:mongoose.Schema.ObjectId,
+        ref:"mentor"},
 
     timeToStart:String,
 
@@ -17,6 +20,17 @@ const SessionSchema= new mongoose.Schema ({
         enum:["Pending","Declined","Aproved"], 
         default:"Pending"}
 });
+
+SessionSchema.pre(/^find/, function(next){
+    this.populate({
+        path:"user",
+        select:"firstName lastName email phoneNumber gender"
+    }).populate({
+        path:"mentor",
+        select:"firstName lastName email phoneNumber gender"
+    });
+    next();
+})
 
 const SessionInfo=mongoose.model('Session',SessionSchema);
 
