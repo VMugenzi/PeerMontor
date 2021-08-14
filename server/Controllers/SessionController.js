@@ -2,6 +2,8 @@ import SessionInfo from "../Models/SessionModel";
 class sessionController{
 
     static registerSession = async(req,res)=> {
+        console.log(req.user);
+        req.body.user=req.user.id;
         const session= await SessionInfo.create(req.body);
         if (!session){
             return res.status(400).json({
