@@ -1,17 +1,20 @@
 import UserInfo from "../Models/UserModel";
 import TokenAuth from "../Helpers/TokenAuth";
+import bcrypt from "bcrypt";
 
 class userController{
 
     static signinUser = async (req, res) =>{
         const {email,password}= req.body;
-       const user = await UserInfo.findOne({email:email,password:password});
+       const user = await UserInfo.findOne({email:email});
     if (!user){
         return res.status(404).json({
             status: 404,
             message:"user does not exist"
         })
     }
+    if (bcrypt.compareSync(password,user.password))
+    {
     const token=TokenAuth.tokenGenerator({
         id:user._id,
         email:user.email,
@@ -24,13 +27,19 @@ class userController{
         token: token,
         data:user
     });
- 
 }
-
+}
 
 
 //sign up function
 static signupUser = async(req,res)=> {
+const saltRound=10;
+console.log("yolo")
+const hashPassword=bcrypt.hashSync(req.body.password,saltRound);
+console.log(hashPassword)
+req.body.password=hashPassword;
+
+
 const user = await UserInfo.create(req.body);
 
 if (!user){

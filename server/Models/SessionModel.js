@@ -6,15 +6,15 @@ const SessionSchema= new mongoose.Schema ({
     description:String,
 
     user:{type:mongoose.Schema.ObjectId,
-        ref:"user"
+        ref:"User"
          },
 
     mentor:{type:mongoose.Schema.ObjectId,
-        ref:"mentor"},
+        ref:"User"},
 
-    timeToStart:String,
+    timeToStart:Date,
 
-    timeToEnd:String,
+    timeToEnd:Date,
 
     status: {type:String,
         enum:["Pending","Declined","Aproved"], 

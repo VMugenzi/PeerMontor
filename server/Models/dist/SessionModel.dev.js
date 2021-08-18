@@ -14,14 +14,14 @@ var SessionSchema = new _mongoose["default"].Schema({
   description: String,
   user: {
     type: _mongoose["default"].Schema.ObjectId,
-    ref: "user"
+    ref: "User"
   },
   mentor: {
     type: _mongoose["default"].Schema.ObjectId,
-    ref: "mentor"
+    ref: "User"
   },
-  timeToStart: String,
-  timeToEnd: String,
+  timeToStart: Date,
+  timeToEnd: Date,
   status: {
     type: String,
     "enum": ["Pending", "Declined", "Aproved"],
