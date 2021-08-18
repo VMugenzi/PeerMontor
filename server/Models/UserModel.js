@@ -19,6 +19,7 @@ const UserSchema= new mongoose.Schema({
                default:"12345@"},
     
     age: Number,
+    career:String,
 
     role:{type:String,
           enum:["admin","mentor","user"],
