@@ -4,11 +4,12 @@ import dotenv from "dotenv";
 import userRouter from "./server/Routes/UserRoute";
 import sessionRouter from "./server/Routes/SessionRoute.js";
 import bodyParser from"body-parser";
+import cors from "cors";
 
 dotenv.config({path: './.env'});
 const app=express();
 
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/PeerMontor/v1/user",userRouter);
 app.use("/PeerMontor/v1/session",sessionRouter);
